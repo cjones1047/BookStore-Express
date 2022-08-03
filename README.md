@@ -26,16 +26,16 @@ Credentialed user will get feedback saying their search is invalid if they type 
 
 ### WIRE FRAMES
 
-![](Images/Photo1.png)
-![](Images/Photo2.png)
-![](Images/Photo3.png)
-![](Images/Photo4.png)
-![](Images/Photo5.png)
-![](Images/Photo6.png)
-![](Images/Photo7.png)
-![](Images/Photo8.png)
-![](Images/Photo9.png)
-![](Images/Photo10.png)
+![](Images/photo1.png)
+![](Images/photo2.png)
+![](Images/photo3.png)
+![](Images/photo4.png)
+![](Images/photo5.png)
+![](Images/photo6.png)
+![](Images/photo7.png)
+![](Images/photo8.png)
+![](Images/photo9.png)
+![](Images/photo10.png)
 
 ### ERD (entity relationship diagram)
 ![](Images/WireFrame.png)
