@@ -1,36 +1,10 @@
-<<<<<<< HEAD
-yuntian testing push
-
 # express-auth-template
-=======
-# LETS TALK ABOUT BOOKS!!
->>>>>>> d89522879cc84ad9de530af4a70241ee7d0c7b9a
 
-### PROJECT PROMPT
-A full-stack application utilizing React(front-end) and Express(back-end) for users to start and join conversations about books. 
+A template for starting projects with `express` as an API. Includes
+authentication and common middlewares.
 
-### USER STORY
-1. Unregistered user will be able to navigate to book index (Tagged Books) as home page
-2. Unregistered user will be able to sign up(register) using their email
-3. Unregistered user can search books, but not Tag them, comment, or like, until login
-4. Unregistered user will be able to click on any book on home page (Tagged Books) and go to a show page of that book
-5. Unregistered user will be able to enter a book title in a search box and view a show page of the searched book
-6. Unregistered user will get feedback saying their search is invalid if they type in an invalid title to a book
-7. Unregistered user can view any other credentialed user’s comments from a book’s show page
-8. Registered user will be able to sign in
-9. Credentialed user will be able to sign out
-10. Credentialed user will be able to click on any book on Tagged Books and go to a show page of that book
-11. Credentialed user will be able to enter a book title in a search box and view a show page of the searched book
-Credentialed user will get feedback saying their search is invalid if they type in an invalid title to a book
-12. Credentialed user can add any searched book to the index page with the click of an “Tag” button
-13. Credentialed user can choose to delete their own book they added from the via the book’s show page
-14. Credentialed user can post comments about a book from the book’s show page
-15. Credentialed user can view any other credentialed user’s comments from a book’s show page
-16. Credentialed user can delete their own comments from a book’s show page
-17. Credentialed user can edit their own past comments on a book’s show page
-18. Credentialed user will be redirected to “Tagged Books” page upon login
+## Installation
 
-<<<<<<< HEAD
 1. [Download](../../archive/master.zip) this template.
 1. Move the .zip file to your `sei/projects/` directory and Unzip it (creating a
    folder) -- **NOTE:** if the folder was already unzipped, use the `mv` command
@@ -41,37 +15,24 @@ Credentialed user will get feedback saying their search is invalid if they type 
 1. Replace all instances of `'express-auth-template'` with your app name.
 1. Install dependencies with `npm install`.
 1. Ensure that you have `nodemon` installed by running `npm install -g nodemon`.
-1. Once everything is working, make an initial commit.
-=======
-### WIRE FRAMES
->>>>>>> d89522879cc84ad9de530af4a70241ee7d0c7b9a
+2. Once everything is working, make an initial commit.
 
-![](Images/photo1.png)
-![](Images/photo2.png)
-![](Images/photo3.png)
-![](Images/photo4.png)
-![](Images/photo5.png)
-![](Images/photo6.png)
-![](Images/photo7.png)
-![](Images/photo8.png)
-![](Images/photo9.png)
-![](Images/photo10.png)
+## Structure
 
-### ERD (entity relationship diagram)
-![](Images/WireFrame.png)
+Dependencies are stored in [`package.json`](package.json).
 
-### API
-##### GOOGLE BOOKS
-##### "https://developers.google.com/books/"
+The most important file for understanding the structure of the template is
+`server.js`. This is where the actual Express `app` object is created, where
+the middlewares and routes are registered, and more. To register a routefile,
+follow the pattern established here with `exampleRoutes` and `userRoutes`. If
+you want to add any middlewares to your app, do that here.
 
-### CREATED BY:
-| Role | Name |
-| -----|------|
-| Team Manager | Ariana Briceno |
-| Front End SME | Casey Jones |
-| Back End SME(s) | Terrance Wells & Yuntian Zheng |
+The `app` directory contains models and route files. Models are simply Mongoose
+models. To create your own, follow the patterns established in
+`app/models/example.js`. Route files are somewhat similar to controllers in
+Rails, but they cover more functionality, including serialization and deciding
+which HTTP verbs to accept and what to do with them.
 
-<<<<<<< HEAD
 The `config` directory holds just `db.js`, which is where you specify the name
 and URL of your database.
 
@@ -99,10 +60,10 @@ Add your own scripts to test your custom API.
 
 ### Authentication
 
-| Verb   | URI Pattern         | Controller#Action |
-| ------ | ------------------- | ----------------- |
-| POST   | `/sign-up`          | `users#signup`    |
-| POST   | `/sign-in`          | `users#signin`    |
+| Verb   | URI Pattern            | Controller#Action |
+|--------|------------------------|-------------------|
+| POST   | `/sign-up`             | `users#signup`    |
+| POST   | `/sign-in`             | `users#signin`    |
 | PATCH  | `/change-password/` | `users#changepw`  |
 | DELETE | `/sign-out/`        | `users#signout`   |
 
@@ -133,10 +94,10 @@ HTTP/1.1 201 Created
 Content-Type: application/json; charset=utf-8
 
 {
-"user": {
-"id": 1,
-"email": "an@example.email"
-}
+  "user": {
+    "id": 1,
+    "email": "an@example.email"
+  }
 }
 ```
 
@@ -166,11 +127,11 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
 
 {
-"user": {
-"id": 1,
-"email": "an@example.email",
-"token": "33ad6372f795694b333ec5f329ebeaaa"
-}
+  "user": {
+    "id": 1,
+    "email": "an@example.email",
+    "token": "33ad6372f795694b333ec5f329ebeaaa"
+  }
 }
 ```
 
@@ -218,7 +179,3 @@ Response:
 ```md
 HTTP/1.1 204 No Content
 ```
-=======
-##### STRETCH GOALS
-- auto completing search box that provides suggestions as the user input changes
->>>>>>> d89522879cc84ad9de530af4a70241ee7d0c7b9a
