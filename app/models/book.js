@@ -16,10 +16,7 @@ const bookSchema = new mongoose.Schema(
             required: true
         },
         description: String,
-        comments:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Comment"
-        },
+        comments:[commentSchema],
         likes:[likeSchema]
 
     },
