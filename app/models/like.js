@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const likeSchema = new mongoose.Schema(
+const like = new mongoose.Schema(
     {
         owner:{
             type: mongoose.Schema.Types.ObjectId,
@@ -15,4 +15,4 @@ const likeSchema = new mongoose.Schema(
     }
 )
 
-module.exports = mongoose.model('Like', likeSchema)
+module.exports = like
