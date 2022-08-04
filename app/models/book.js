@@ -17,7 +17,13 @@ const bookSchema = new mongoose.Schema(
         },
         description: String,
         comments:[commentSchema],
-        likes:[likeSchema]
+        likes: [likeSchema],
+        
+        owner:{
+            type: mongoose.Schema.Types.ObjectId,
+			ref: 'User',
+			required: true,
+        }
 
     },
     {
