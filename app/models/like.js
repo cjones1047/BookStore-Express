@@ -12,7 +12,10 @@ const likeSchema = new mongoose.Schema(
 			ref: 'Book',
 			required: true,
         }
-    }
+    },
+    {
+		timestamps: true,
+	}
 )
 
-module.exports = mongoose.model('Like', likeSchema)
+module.exports = likeSchema
