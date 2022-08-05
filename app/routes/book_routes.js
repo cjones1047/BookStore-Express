@@ -47,13 +47,15 @@ let api = "https://www.googleapis.com/books/v1/volumes?q="
 //     .catch(next)
 
 // })
-router.get('/books/:id', requireToken, (req, res, next) => {
+//show all book
+router.get('/books', requireToken, (req, res, next) => {
 
-	Book.findById(req.params.id)
+	Book.find()
 		.then(handle404)
 		.then((book) => res.status(200).json({ book: book.toObject() }))
 		.catch(next)
 })
+//creat book
 router.post('/book', requireToken, (req, res, next) => {
 
 	req.body.book.owner = req.user.id
@@ -63,7 +65,16 @@ router.post('/book', requireToken, (req, res, next) => {
 		})
 		.catch(next)
 })
+//find book
+router.get('/book/:id', requireToken, (req, res, next) => {
+	Example.findById(req.params.id)
+		.then(handle404)
+	
+		.then((book) => res.status(200).json({ book: book.toObject() }))
 
+		.catch(next)
+})
+//delete book
 router.delete('/book/:id', requireToken, (req, res, next) => {
 	Book.findById(req.params.id)
 		.then(handle404)
@@ -72,6 +83,26 @@ router.delete('/book/:id', requireToken, (req, res, next) => {
 			book.deleteOne()
 		})
 		.then(() => res.sendStatus(204))
+		.catch(next)
+})
+router.patch('/book/:id', requireToken, removeBlanks, (req, res, next) => {
+	// if the client attempts to change the `owner` property by including a new
+	// owner, prevent that by deleting that key/value pair
+	delete req.body.book.owner
+
+	Book.findById(req.params.id)
+		.then(handle404)
+		.then((book) => {
+			// pass the `req` object and the Mongoose record to `requireOwnership`
+			// it will throw an error if the current user isn't the owner
+			requireOwnership(req, book)
+
+			// pass the result of Mongoose's `.update` to the next `.then`
+			return book.updateOne(req.body.book)
+		})
+		// if that succeeded, return 204 and no JSON
+		.then(() => res.sendStatus(204))
+		// if an error occurs, pass it to the handler
 		.catch(next)
 })
 module.exports = router
