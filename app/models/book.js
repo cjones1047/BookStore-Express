@@ -1,16 +1,18 @@
 const mongoose = require('mongoose')
-
+const commentSchema = require('./comment')
+const likeSchema = require('./like')
 const bookSchema = new mongoose.Schema(
     {
         title: {
             type: String,
             required: true
         },
-        author: {
-            type: String,
+        authors: {
+            type: [String],
             required: true
         },
         image: String,
+        isbn: String,
         publisher: {
             type: String,
             required: true
