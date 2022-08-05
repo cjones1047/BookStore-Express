@@ -64,7 +64,7 @@ router.post('/book', requireToken, (req, res, next) => {
 		.catch(next)
 })
 
-router.delete('/examples/:id', requireToken, (req, res, next) => {
+router.delete('/book/:id', requireToken, (req, res, next) => {
 	Book.findById(req.params.id)
 		.then(handle404)
 		.then((book) => {
