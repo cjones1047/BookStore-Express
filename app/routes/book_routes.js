@@ -47,6 +47,21 @@ let api = "https://www.googleapis.com/books/v1/volumes?q="
 //     .catch(next)
 
 // })
+
+router.get('/books', (req, res, next) => {
+	Book.find()
+		.then((books) => {
+			// `books` will be an array of Mongoose documents
+			// we want to convert each one to a POJO, so we use `.map` to
+			// apply `.toObject` to each one
+			return books.map((book) => book.toObject())
+		})
+		// respond with status 200 and JSON of the books
+		.then((books) => res.status(200).json({ books: books }))
+		// if an error occurs, pass it to the handler
+		.catch(next)
+})
+
 router.get('/books/:id', requireToken, (req, res, next) => {
 
 	Book.findById(req.params.id)
