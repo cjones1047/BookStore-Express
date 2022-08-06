@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const like = new mongoose.Schema(
+const likeSchema = new mongoose.Schema(
     {
         owner:{
             type: mongoose.Schema.Types.ObjectId,
