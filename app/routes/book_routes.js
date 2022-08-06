@@ -2,10 +2,10 @@
 const express = require('express')
 // Passport docs: http://www.passportjs.org/docs/
 const passport = require('passport')
-
+// const fetch = require("node-fetch")
 // pull in Mongoose model for examples
-const Example = require('../models/example')
-
+const fetch = require('node-fetch')
+const Book = require('../models/book')
 // this is a collection of methods that help us detect situations when we need
 // to throw a custom error
 const customErrors = require('../../lib/custom_errors')
@@ -26,5 +26,52 @@ const requireToken = passport.authenticate('bearer', { session: false })
 
 // instantiate a router (mini app that only handles routes)
 const router = express.Router()
+let api = "https://www.googleapis.com/books/v1/volumes?q="
 
+// router.get("/book/:name", (req, res, next) => {
+//     const book = req.params.name
+//     const requestURL = api += book
+//     fetch(requestURL)
+//         .then((responseObjs) => {
+//             return responseObjs.json()
+//         })
+//         .then((responseObjs) => res.status(200).json({responseObjs: responseObjs}))
+//         .catch(next)
+// })
+// router.post('/book/:id', requireToken, (req, res, next) => {
+//     req.body.book.owner = req.user.id
+//     Book.create(req.body.book)
+//         .then((book) => {
+//             res.status(201).json({book:book})
+//         })
+//     .catch(next)
+
+// })
+router.get('/books/:id', requireToken, (req, res, next) => {
+
+	Book.findById(req.params.id)
+		.then(handle404)
+		.then((book) => res.status(200).json({ book: book.toObject() }))
+		.catch(next)
+})
+router.post('/book', requireToken, (req, res, next) => {
+
+	req.body.book.owner = req.user.id
+	Book.create(req.body.book)
+		.then((book) => {
+			res.status(201).json({ book: book.toObject() })
+		})
+		.catch(next)
+})
+
+router.delete('/book/:id', requireToken, (req, res, next) => {
+	Book.findById(req.params.id)
+		.then(handle404)
+		.then((book) => {
+			requireOwnership(req, book)
+			book.deleteOne()
+		})
+		.then(() => res.sendStatus(204))
+		.catch(next)
+})
 module.exports = router

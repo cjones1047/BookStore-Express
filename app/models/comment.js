@@ -1,22 +1,23 @@
 const mongoose = require('mongoose')
 
 
-const commentSchema = new mongoose.Schema({
+const commentSchema = new mongoose.Schema(
+    {
+        note: {
+            type: String,
+            required: true
     
-    note: {
-        type: String,
-        required: true
-    
-  },
-
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-}
-}, {
-    timestamps: true
-})
-
+        },
+        owner: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+        }
+    }, 
+    {
+        timestamps: true
+    }
+)
 
 
 module.exports = commentSchema

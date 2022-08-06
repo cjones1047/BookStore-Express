@@ -19,8 +19,9 @@ A full-stack application utilizing React(front-end) and Express(back-end) for us
 7. Unregistered user can view any other credentialed user’s comments from a book’s show page
 8. Registered user will be able to sign in
 9. Credentialed user will be able to sign out
-10. Credentialed user will be able to click on any book on Tagged Books and go to a show page of that book
-11. Credentialed user will be able to enter a book title in a search box and view a show page of the searched book
+10. Credentialed user will be able to change their password
+11. Credentialed user will be able to click on any book on Tagged Books and go to a show page of that book
+12. Credentialed user will be able to enter a book title in a search box and view a show page of the searched book
 Credentialed user will get feedback saying their search is invalid if they type in an invalid title to a book
 12. Credentialed user can add any searched book to the index page with the click of an “Tag” button
 13. Credentialed user can choose to delete their own book they added from the via the book’s show page
