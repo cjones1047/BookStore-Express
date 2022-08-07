@@ -69,7 +69,8 @@ router.get('/books/:id', requireToken, (req, res, next) => {
 		.then((book) => res.status(200).json({ book: book.toObject() }))
 		.catch(next)
 })
-router.post('/book', requireToken, (req, res, next) => {
+
+router.post('/books', requireToken, (req, res, next) => {
 
 	req.body.book.owner = req.user.id
 	Book.create(req.body.book)
@@ -79,7 +80,7 @@ router.post('/book', requireToken, (req, res, next) => {
 		.catch(next)
 })
 
-router.delete('/book/:id', requireToken, (req, res, next) => {
+router.delete('/books/:id', requireToken, (req, res, next) => {
 	Book.findById(req.params.id)
 		.then(handle404)
 		.then((book) => {
