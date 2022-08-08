@@ -47,14 +47,6 @@ let api = "https://www.googleapis.com/books/v1/volumes?q="
 //     .catch(next)
 
 // })
-//show book by id
-router.get('/books/:id', requireToken, (req, res, next) => {
-
-	Book.findById(req.params.id)
-		.then(handle404)
-		.then((book) => res.status(200).json({ book: book.toObject() }))
-		.catch(next)
-})
 //show index
 router.get('/books', requireToken, (req, res, next) => {
 	Example.find()
