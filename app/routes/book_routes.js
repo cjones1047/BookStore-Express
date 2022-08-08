@@ -47,16 +47,29 @@ let api = "https://www.googleapis.com/books/v1/volumes?q="
 //     .catch(next)
 
 // })
-//show index
-router.get('/books', requireToken, (req, res, next) => {
-	Example.find()
+
+router.get('/books', (req, res, next) => {
+	Book.find()
 		.then((books) => {
+			// `books` will be an array of Mongoose documents
+			// we want to convert each one to a POJO, so we use `.map` to
+			// apply `.toObject` to each one
 			return books.map((book) => book.toObject())
 		})
+		// respond with status 200 and JSON of the books
 		.then((books) => res.status(200).json({ books: books }))
+		// if an error occurs, pass it to the handler
 		.catch(next)
 })
-//create books
+
+router.get('/books/:id', requireToken, (req, res, next) => {
+
+	Book.findById(req.params.id)
+		.then(handle404)
+		.then((book) => res.status(200).json({ book: book.toObject() }))
+		.catch(next)
+})
+
 router.post('/books', requireToken, (req, res, next) => {
 
 	req.body.book.owner = req.user.id
@@ -66,27 +79,13 @@ router.post('/books', requireToken, (req, res, next) => {
 		})
 		.catch(next)
 })
-//delete books by id
+
 router.delete('/books/:id', requireToken, (req, res, next) => {
 	Book.findById(req.params.id)
 		.then(handle404)
 		.then((book) => {
 			requireOwnership(req, book)
 			book.deleteOne()
-		})
-		.then(() => res.sendStatus(204))
-		.catch(next)
-})
-//update books by id
-router.patch('/books/:id', requireToken, removeBlanks, (req, res, next) => {
-	delete req.body.book.owner
-
-	Book.findById(req.params.id)
-		.then(handle404)
-		.then((book) => {
-			requireOwnership(req, example)
-
-			return book.updateOne(req.body.example)
 		})
 		.then(() => res.sendStatus(204))
 		.catch(next)
