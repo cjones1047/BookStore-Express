@@ -47,7 +47,7 @@ let api = "https://www.googleapis.com/books/v1/volumes?q="
 //     .catch(next)
 
 // })
-//show all book
+//show book by id
 router.get('/books/:id', requireToken, (req, res, next) => {
 
 	Book.findById(req.params.id)
@@ -55,7 +55,8 @@ router.get('/books/:id', requireToken, (req, res, next) => {
 		.then((book) => res.status(200).json({ book: book.toObject() }))
 		.catch(next)
 })
-router.get('/book', requireToken, (req, res, next) => {
+//show index
+router.get('/books', requireToken, (req, res, next) => {
 	Example.find()
 		.then((books) => {
 			return books.map((book) => book.toObject())
@@ -63,7 +64,8 @@ router.get('/book', requireToken, (req, res, next) => {
 		.then((books) => res.status(200).json({ books: books }))
 		.catch(next)
 })
-router.post('/book', requireToken, (req, res, next) => {
+//create books
+router.post('/books', requireToken, (req, res, next) => {
 
 	req.body.book.owner = req.user.id
 	Book.create(req.body.book)
@@ -72,8 +74,8 @@ router.post('/book', requireToken, (req, res, next) => {
 		})
 		.catch(next)
 })
-
-router.delete('/book/:id', requireToken, (req, res, next) => {
+//delete books by id
+router.delete('/books/:id', requireToken, (req, res, next) => {
 	Book.findById(req.params.id)
 		.then(handle404)
 		.then((book) => {
@@ -83,8 +85,8 @@ router.delete('/book/:id', requireToken, (req, res, next) => {
 		.then(() => res.sendStatus(204))
 		.catch(next)
 })
-
-router.patch('/book/:id', requireToken, removeBlanks, (req, res, next) => {
+//update books by id
+router.patch('/books/:id', requireToken, removeBlanks, (req, res, next) => {
 	delete req.body.book.owner
 
 	Book.findById(req.params.id)
