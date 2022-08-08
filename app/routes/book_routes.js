@@ -47,7 +47,25 @@ let api = "https://www.googleapis.com/books/v1/volumes?q="
 //     .catch(next)
 
 // })
+<<<<<<< HEAD
 //show all book
+=======
+
+router.get('/books', (req, res, next) => {
+	Book.find()
+		.then((books) => {
+			// `books` will be an array of Mongoose documents
+			// we want to convert each one to a POJO, so we use `.map` to
+			// apply `.toObject` to each one
+			return books.map((book) => book.toObject())
+		})
+		// respond with status 200 and JSON of the books
+		.then((books) => res.status(200).json({ books: books }))
+		// if an error occurs, pass it to the handler
+		.catch(next)
+})
+
+>>>>>>> updated-book-model-and-book-routes
 router.get('/books/:id', requireToken, (req, res, next) => {
 
 	Book.findById(req.params.id)
@@ -55,6 +73,7 @@ router.get('/books/:id', requireToken, (req, res, next) => {
 		.then((book) => res.status(200).json({ book: book.toObject() }))
 		.catch(next)
 })
+<<<<<<< HEAD
 router.get('/book', requireToken, (req, res, next) => {
 	Example.find()
 		.then((books) => {
@@ -64,6 +83,10 @@ router.get('/book', requireToken, (req, res, next) => {
 		.catch(next)
 })
 router.post('/book', requireToken, (req, res, next) => {
+=======
+
+router.post('/books', requireToken, (req, res, next) => {
+>>>>>>> updated-book-model-and-book-routes
 
 	req.body.book.owner = req.user.id
 	Book.create(req.body.book)
@@ -73,7 +96,7 @@ router.post('/book', requireToken, (req, res, next) => {
 		.catch(next)
 })
 
-router.delete('/book/:id', requireToken, (req, res, next) => {
+router.delete('/books/:id', requireToken, (req, res, next) => {
 	Book.findById(req.params.id)
 		.then(handle404)
 		.then((book) => {
