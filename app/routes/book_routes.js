@@ -47,11 +47,20 @@ let api = "https://www.googleapis.com/books/v1/volumes?q="
 //     .catch(next)
 
 // })
+//show all book
 router.get('/books/:id', requireToken, (req, res, next) => {
 
 	Book.findById(req.params.id)
 		.then(handle404)
 		.then((book) => res.status(200).json({ book: book.toObject() }))
+		.catch(next)
+})
+router.get('/book', requireToken, (req, res, next) => {
+	Example.find()
+		.then((books) => {
+			return books.map((book) => book.toObject())
+		})
+		.then((books) => res.status(200).json({ books: books }))
 		.catch(next)
 })
 router.post('/book', requireToken, (req, res, next) => {
@@ -70,6 +79,20 @@ router.delete('/book/:id', requireToken, (req, res, next) => {
 		.then((book) => {
 			requireOwnership(req, book)
 			book.deleteOne()
+		})
+		.then(() => res.sendStatus(204))
+		.catch(next)
+})
+
+router.patch('/book/:id', requireToken, removeBlanks, (req, res, next) => {
+	delete req.body.book.owner
+
+	Book.findById(req.params.id)
+		.then(handle404)
+		.then((book) => {
+			requireOwnership(req, example)
+
+			return book.updateOne(req.body.example)
 		})
 		.then(() => res.sendStatus(204))
 		.catch(next)
