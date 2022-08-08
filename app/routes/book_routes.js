@@ -47,9 +47,6 @@ let api = "https://www.googleapis.com/books/v1/volumes?q="
 //     .catch(next)
 
 // })
-<<<<<<< HEAD
-//show all book
-=======
 
 router.get('/books', (req, res, next) => {
 	Book.find()
@@ -65,7 +62,6 @@ router.get('/books', (req, res, next) => {
 		.catch(next)
 })
 
->>>>>>> updated-book-model-and-book-routes
 router.get('/books/:id', requireToken, (req, res, next) => {
 
 	Book.findById(req.params.id)
@@ -73,20 +69,8 @@ router.get('/books/:id', requireToken, (req, res, next) => {
 		.then((book) => res.status(200).json({ book: book.toObject() }))
 		.catch(next)
 })
-<<<<<<< HEAD
-router.get('/book', requireToken, (req, res, next) => {
-	Example.find()
-		.then((books) => {
-			return books.map((book) => book.toObject())
-		})
-		.then((books) => res.status(200).json({ books: books }))
-		.catch(next)
-})
-router.post('/book', requireToken, (req, res, next) => {
-=======
 
 router.post('/books', requireToken, (req, res, next) => {
->>>>>>> updated-book-model-and-book-routes
 
 	req.body.book.owner = req.user.id
 	Book.create(req.body.book)
