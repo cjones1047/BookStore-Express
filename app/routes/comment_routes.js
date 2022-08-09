@@ -13,6 +13,24 @@ const router = express.Router()
 
 // ROUTES 
 
+// Get all comments
+router.get('/comments/:bookId', (req, res, next) => {
+
+    // get id of book from parameters
+    const bookId = req.params.bookId
+
+	Book.findById(bookId)
+		.then((book) => {
+			// `book.comments` will be an array of Mongoose documents
+			// we want to convert each one to a POJO, so we use `.map` to
+			// apply `.toObject` to each one
+			return book.comments.map((comment) => comment.toObject())
+		})
+		// respond with status 200 and JSON of the books
+		.then((comments) => res.status(200).json({ comments: comments }))
+		// if an error occurs, pass it to the handler
+		.catch(next)
+})
 
 // Create 
 // POST /comments/<book_id>
@@ -25,13 +43,13 @@ router.post('/comments/:bookId', (req, res, next) => {
     Book.findById(bookId)
         .then(handle404)
         .then(book => {
-            console.log('this is the book BEFORE commenting: ', book)
-            console.log('this is the comment: ', comment)
+            // console.log('this is the book BEFORE commenting: ', book)
+            // console.log('this is the comment: ', comment)
 
             // push the comment into the book's comments array
             book.comments.push(req.body)
 
-            console.log('this is the book AFTER commenting: ', book)
+            // console.log('this is the book AFTER commenting: ', book)
 
             return book.save()
 
