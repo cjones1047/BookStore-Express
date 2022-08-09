@@ -75,7 +75,7 @@ router.patch('/comments/:bookId/:commentId', requireToken, removeBlanks, (req, r
             // single out the comment 
             const theComment = book.comments.id(commentId)
             // make sure the user sending the request is the owner
-            requireOwnership(req, book)
+            // requireOwnership(req, book)
             // update the comment with a subdocument method
             theComment.set(req.body)
             // return the saved book
@@ -104,7 +104,7 @@ router.delete('/comments/:bookId/:commentId', requireToken, (req, res, next) => 
 
             const theComment = book.comments.id(commentId)
             // user deleting this comment is the book's owner
-            requireOwnership(req, book)
+            // requireOwnership(req, book)
             // call remove on the subdoc
             theComment.remove()
             // return the saved book
