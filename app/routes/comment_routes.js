@@ -66,18 +66,24 @@ router.patch('/comments/:bookId/:commentId', requireToken, removeBlanks, (req, r
     const bookId = req.params.bookId
     const commentId = req.params.commentId
 
+    // console.log('Heres the new note: ', req.body.note)
+
     // find our book
     Book.findById(bookId)
         .then(handle404)
         .then(book => {
             // single out the comment 
-            const theComment = book.comments._id(commentId)
+            const theComment = book.comments.id(commentId)
             // make sure the user sending the request is the owner
             requireOwnership(req, book)
             // update the comment with a subdocument method
-            theComment.set(req.body.comment)
+            theComment.set(req.body)
             // return the saved book
+            // console.log('Heres the book AFTER updating note: ', book)
             return book.save()
+
+            
+            
         })
         .then(() => res.sendStatus(204))
         .catch(next)
