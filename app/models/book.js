@@ -19,7 +19,7 @@ const bookSchema = new mongoose.Schema(
         },
         description: String,
         comments:[commentSchema],
-        likes: [likeSchema],
+        reasonTagged: String,
         
         owner:{
             type: mongoose.Schema.Types.ObjectId,
